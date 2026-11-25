@@ -1,0 +1,24 @@
+# Standalone profile: in-process core-banking stub and the platform seed users.
+core:
+  banking:
+    base-url: http://localhost:${server.port}/__stub/core/api/v1
+
+nb:
+  billpay:
+    release-cron: "*/30 * * * * *"
+  security:
+    users:
+      - username: dana.whitfield
+        password: "{noop}Welcome1!"
+        role: CUSTOMER
+        cif: "100000001"
+      - username: marcus.oyelaran
+        password: "{noop}Welcome1!"
+        role: CUSTOMER
+        cif: "100000002"
+      - username: teller01
+        password: "{noop}Teller#2019"
+        role: TELLER
+      - username: ops.batch
+        password: "{noop}Ops#Batch1"
+        role: OPS

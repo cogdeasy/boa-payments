@@ -1,0 +1,9 @@
+target/
+.git-sha
+*.log
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+!ops/logs/*.log

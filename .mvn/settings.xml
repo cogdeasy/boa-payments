@@ -1,0 +1,11 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+  <mirrors>
+    <mirror>
+      <id>nexus</id>
+      <name>Northbridge Nexus (proxies Central)</name>
+      <url>https://nexus.nbfb.internal/repository/maven-public</url>
+      <mirrorOf>central</mirrorOf>
+      <blocked>false</blocked>
+    </mirror>
+  </mirrors>
+</settings>

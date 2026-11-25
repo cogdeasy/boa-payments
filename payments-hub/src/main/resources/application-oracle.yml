@@ -1,0 +1,17 @@
+# Shared environments (SIT/UAT/PROD) run on the PMTHUB Oracle 19c schema.
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//pmtdb-scan.nbfb.internal:1521/PMTHUB
+    username: PMT_APP
+    password: Pmthub#2020q3
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      maximum-pool-size: 20
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      ddl-auto: validate
+
+core:
+  banking:
+    base-url: http://core-banking.nbfb.internal:8080/api/v1
