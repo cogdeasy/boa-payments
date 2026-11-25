@@ -1,7 +1,7 @@
 # Shared environments (SIT/UAT/PROD) run on the PMTHUB Oracle 19c schema.
 spring:
   datasource:
-    url: jdbc:oracle:thin:@//pmtdb-scan.nbfb.internal:1521/PMTHUB
+    url: jdbc:oracle:thin:@//pmtdb-scan.bofa.com:1521/PMTHUB
     username: PMT_APP
     password: Pmthub#2020q3
     driver-class-name: oracle.jdbc.OracleDriver
@@ -14,4 +14,4 @@ spring:
 
 core:
   banking:
-    base-url: http://core-banking.nbfb.internal:8080/api/v1
+    base-url: http://core-banking.bofa.com:8080/api/v1

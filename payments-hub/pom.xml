@@ -11,25 +11,25 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.northbridge.payments</groupId>
+    <groupId>com.bofa.payments</groupId>
     <artifactId>payments-hub</artifactId>
     <version>2.7.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Northbridge Payments Hub</name>
-    <description>Bill pay, person-to-person transfers and payee management for Northbridge online and mobile banking.</description>
+    <name>BofA Payments Hub</name>
+    <description>Bill pay, person-to-person transfers and payee management for Bank of America Online Banking and Mobile Banking.</description>
 
     <properties>
         <java.version>11</java.version>
-        <nb-common.version>4.11.3</nb-common.version>
+        <boa-common.version>4.11.3</boa-common.version>
         <springfox.version>2.9.2</springfox.version>
         <jacoco.version>0.8.5</jacoco.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.northbridge</groupId>
-            <artifactId>nb-common</artifactId>
-            <version>${nb-common.version}</version>
+            <groupId>com.bofa</groupId>
+            <artifactId>boa-common</artifactId>
+            <version>${boa-common.version}</version>
         </dependency>
 
         <dependency>
@@ -61,7 +61,7 @@
             <artifactId>httpclient</artifactId>
         </dependency>
 
-        <!-- JAXB runtime for nb-common StatementXml (removed from the JDK in 11). -->
+        <!-- JAXB runtime for boa-common StatementXml (removed from the JDK in 11). -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>

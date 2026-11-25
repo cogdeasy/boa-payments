@@ -2,8 +2,8 @@
   <mirrors>
     <mirror>
       <id>nexus</id>
-      <name>Northbridge Nexus (proxies Central)</name>
-      <url>https://nexus.nbfb.internal/repository/maven-public</url>
+      <name>BofA Nexus (proxies Central)</name>
+      <url>https://nexus.bofa.com/repository/maven-public</url>
       <mirrorOf>central</mirrorOf>
       <blocked>false</blocked>
     </mirror>

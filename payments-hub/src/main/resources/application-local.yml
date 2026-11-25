@@ -3,7 +3,7 @@ core:
   banking:
     base-url: http://localhost:${server.port}/__stub/core/api/v1
 
-nb:
+boa:
   billpay:
     release-cron: "*/30 * * * * *"
   security:

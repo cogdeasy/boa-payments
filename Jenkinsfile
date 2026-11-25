@@ -1,5 +1,5 @@
 // Payments zone build. Runs on the shared Maven agents (JDK 11 + Maven 3.6).
-// Owner: payments-platform@nbfb.internal
+// Owner: payments-platform@bofa.com
 pipeline {
     agent { label 'maven && jdk11' }
 
@@ -11,7 +11,7 @@ pipeline {
     environment {
         JAVA_HOME = '/opt/jdk-11'
         MAVEN_OPTS = '-Xmx1g -Dmaven.artifact.threads=10'
-        NEXUS = 'https://nexus.nbfb.internal/repository/maven-releases'
+        NEXUS = 'https://nexus.bofa.com/repository/maven-releases'
     }
 
     stages {
@@ -64,7 +64,7 @@ pipeline {
 
     post {
         failure {
-            emailext to: 'payments-platform@nbfb.internal',
+            emailext to: 'payments-platform@bofa.com',
                      subject: "payments-hub ${env.BRANCH_NAME} #${env.BUILD_NUMBER} FAILED",
                      body: "${env.BUILD_URL}"
         }

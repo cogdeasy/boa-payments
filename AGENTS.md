@@ -4,8 +4,8 @@ Notes for anyone (human or automated) working in this repository.
 
 ## Layout
 
-* `pom.xml` reactor: `libs/nb-common` (pinned shared library, Java 8) then `payments-hub` (Java 11).
-* `payments-hub/src/main/java/com/northbridge/payments` app code; packages `web`, `service`, `job`,
+* `pom.xml` reactor: `libs/boa-common` (pinned shared library, Java 8) then `payments-hub` (Java 11).
+* `payments-hub/src/main/java/com/bofa/payments` app code; packages `web`, `service`, `job`,
   `core`, `domain`, `repository`, `export`, `security`, `config`, `seed`, `stub`.
 * `payments-hub/src/main/resources` `application*.yml` per profile (`local`, `platform`, `oracle`).
 * `ops/` production log extracts and open operational items.
@@ -15,7 +15,7 @@ Notes for anyone (human or automated) working in this repository.
 JDK 11 must be on `JAVA_HOME`.
 
 ```bash
-mvn clean install                         # full build + tests (also installs nb-common 4.11.3 locally)
+mvn clean install                         # full build + tests (also installs boa-common 4.11.3 locally)
 mvn -pl payments-hub test                 # payments tests only (after one install)
 mvn -pl payments-hub test -Dtest=BillPayServiceTest
 mvn verify                                # tests + JaCoCo report in payments-hub/target/site/jacoco
@@ -39,7 +39,7 @@ calls slower than the client read timeout.
 
 * API contract is owned by the Core Platform (`docs/API.md` there). Do not rename endpoints or
   fields here without a matching change upstream.
-* Amounts: always `Money` (nb-common), never `double`. On the wire they are two-place decimal
+* Amounts: always `Money` (boa-common), never `double`. On the wire they are two-place decimal
   strings.
 * Dates: `BankDates` / America/New_York. No `LocalDate.now()` without the bank zone.
 * Account numbers: validate with `AccountNumbers.isValid`, log only `AccountNumbers.mask(...)`.
@@ -48,6 +48,6 @@ calls slower than the client read timeout.
 * Customer-facing errors are `{code, message}` via `ApiExceptionHandler`; add a code there rather than
   returning ad-hoc bodies.
 * Tests: JUnit 5 + Spring Boot test slices / MockMvc. Name them `<Class>Test`.
-* Do not edit `libs/nb-common` in place; it mirrors an upstream release. Changes go upstream first
+* Do not edit `libs/boa-common` in place; it mirrors an upstream release. Changes go upstream first
   and come back as a new pinned version (see `libs/README.md`).
 * Commit messages: `PMT-<ticket>: <summary>`.

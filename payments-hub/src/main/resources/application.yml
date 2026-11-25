@@ -39,7 +39,7 @@ core:
     backoff-ms: 250
     suspense-account: "307000555010"
 
-nb:
+boa:
   billpay:
     release-cron: "0 */5 * * * *"
 
@@ -56,5 +56,5 @@ logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [payments-hub,%X{rid:-}] %t %logger{36} : %m%n"
   level:
-    com.northbridge: INFO
+    com.bofa: INFO
     http: INFO

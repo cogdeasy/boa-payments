@@ -1,9 +1,9 @@
 # payments-hub
 
-Northbridge Federal Bank payments hub: bill pay, person-to-person (P2P) transfers and payee
-management for retail customers. Owned by Payments Platform (`payments-platform@nbfb.internal`).
+Bank of America payments hub: bill pay, person-to-person (P2P) transfers and payee
+management for retail customers. Owned by Payments Platform (`payments-platform@bofa.com`).
 
-The service sits beside the Northbridge Core Platform. It never holds balances itself: every money
+The service sits beside the BofA Core Platform. It never holds balances itself: every money
 movement is posted to core-banking as a transfer into the payments suspense GL (`307000555010`),
 and settlement out of suspense to the biller / P2P network is handled downstream.
 
@@ -14,14 +14,14 @@ and settlement out of suspense to the biller / P2P network is handled downstream
 | Runtime | Java 11, Spring Boot 2.3.12, Spring Data JPA, Spring Security (HTTP Basic) |
 | Database | H2 in-memory (default) / Oracle 19c (`oracle` profile) |
 | API docs | Swagger 2 (springfox) at `/swagger-ui.html`, spec at `/v2/api-docs` |
-| Shared library | `com.northbridge:nb-common:4.11.3` (vendored under `libs/nb-common`) |
+| Shared library | `com.bofa:boa-common:4.11.3` (vendored under `libs/boa-common`) |
 
 ## Quick start
 
 Requirements: JDK 11 and Maven 3.6+.
 
 ```bash
-mvn clean install                       # builds nb-common, then payments-hub, runs tests
+mvn clean install                       # builds boa-common, then payments-hub, runs tests
 java -jar payments-hub/target/payments-hub.jar
 ```
 
@@ -83,7 +83,7 @@ java -jar payments-hub/target/payments-hub.jar --spring.profiles.active=platform
 | POST | `/api/v1/payments/bill` | CUSTOMER, TELLER | `{cif, fromAccount, payeeId, amount, sendOn}` -> `{paymentId, status: SCHEDULED}` |
 | POST | `/api/v1/payments/p2p` | CUSTOMER, TELLER | `{cif, fromAccount, recipient: {email\|phone}, amount, memo}` -> `{paymentId, status: SENT}` |
 | GET | `/api/v1/payments/history?cif=` | authenticated | optional `status`, `sort` |
-| GET | `/api/v1/payments/history/export?cif=` | authenticated | XML remittance advice (nb-common `StatementXml`) |
+| GET | `/api/v1/payments/history/export?cif=` | authenticated | XML remittance advice (boa-common `StatementXml`) |
 | POST | `/api/v1/payments/ops/release-bills` | OPS | run the release job now |
 
 Amounts are decimal strings with two places, dates are `yyyy-MM-dd` (bank time zone
@@ -112,7 +112,7 @@ Errors use `{ "code": "...", "message": "..." }`, e.g. `NSF`, `INVALID_ACCOUNT`,
 * `job.BillPaymentReleaseJob` picks up `SCHEDULED` bill payments whose `sendOn` is today or
   earlier, checks available balance on core-banking and posts the transfer to suspense.
 * `core` the core-banking client and its wire types.
-* `export` XML remittance advice, marshalled with nb-common `StatementXml` (JAXB).
+* `export` XML remittance advice, marshalled with boa-common `StatementXml` (JAXB).
 * `stub` the in-process core-banking stub used by the `local` profile.
 
 ### How payments talks to core-banking
@@ -126,9 +126,9 @@ Errors use `{ "code": "...", "message": "..." }`, e.g. `NSF`, `INVALID_ACCOUNT`,
   2s, up to 3 attempts with 250ms backoff on I/O errors (`core.banking.*` in `application.yml`).
 * Bill payments use the `paymentId` as the idempotency key.
 
-### nb-common
+### boa-common
 
-`libs/nb-common` is a pinned copy of `com.northbridge:nb-common:4.11.3` from the Core Platform
+`libs/boa-common` is a pinned copy of `com.bofa:boa-common:4.11.3` from the Core Platform
 repository, so this service builds without access to the platform build. payments-hub uses it
 directly:
 
@@ -141,8 +141,8 @@ directly:
 | `xml.StatementXml` | XML remittance export (`javax.xml.bind`) |
 | `crypto.LegacyTokenCipher` | tokenising payee account numbers at rest |
 
-nb-common is compiled for Java 8 and is built on `javax.xml.bind` and `javax.*` APIs, so the JAXB
-API and runtime are declared explicitly in `payments-hub/pom.xml` for Java 11. When nb-common moves
+boa-common is compiled for Java 8 and is built on `javax.xml.bind` and `javax.*` APIs, so the JAXB
+API and runtime are declared explicitly in `payments-hub/pom.xml` for Java 11. When boa-common moves
 to Java 17 / `jakarta.*` this service has to move with it. See `libs/README.md` for how to refresh
 the vendored copy.
 

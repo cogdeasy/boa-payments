@@ -12,9 +12,9 @@ Log line shapes worth knowing:
 | logger | meaning |
 |---|---|
 | `http` | one line per API call: `METHOD URI status=<code> durationMs=<n>` |
-| `c.n.payments.core.CoreBankingClient` | one line per core-banking call out, with the idempotency key |
-| `c.n.p.config.CoreBankingClientConfig` | retry warning, one per failed attempt |
-| `AUDIT` | SOX audit trail (`AUD-*`), written through nb-common `AuditLogger` |
+| `c.b.payments.core.CoreBankingClient` | one line per core-banking call out, with the idempotency key |
+| `c.b.p.config.CoreBankingClientConfig` | retry warning, one per failed attempt |
+| `AUDIT` | SOX audit trail (`AUD-*`), written through boa-common `AuditLogger` |
 
 `rid` in the MDC is the edge request id (`X-Request-Id`), so all lines for one customer request can be
 grepped together.
@@ -32,7 +32,7 @@ Raised by the contact centre on 2026-11-18. Two symptoms during the 10:42-11:34 
    reference in the memo.
 
 Core-banking platform engineering confirmed a GC pause / connection-pool saturation incident on
-`core-banking.nbfb.internal` for that window and considers their side closed: every posting request
+`core-banking.bofa.com` for that window and considers their side closed: every posting request
 they received was well formed and was posted exactly once.
 
 Payments is on the hook for the duplicate debits. Repro and root cause are still open; start from the
